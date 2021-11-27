@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: bats-core/bats-support
-          path: bats-support-${{ env.TAG }}
+          path: bats-support-${{ env.TAG }}-1
           ref: v${{ env.TAG }}
       - name: Bats-support - Checkout debian
         uses: actions/checkout@v2
@@ -27,13 +27,13 @@ jobs:
       - name: Bats-support - install prerequisites
         run: sudo apt install dh-make devscripts -y
       - name: Bats-support - dh_make
-        working-directory: bats-support-${{ env.TAG }}
+        working-directory: bats-support-${{ env.TAG }}-1
         run: dh_make --createorig -s -y
       - name: Bats-support - Override defaults 
-        working-directory: bats-support-${{ env.TAG }}
+        working-directory: bats-support-${{ env.TAG }}-1
         run: cp ../bats-support-debian/bats-support/* debian/
       - name: Bats-support - Debug
-        working-directory: bats-support-${{ env.TAG }}
+        working-directory: bats-support-${{ env.TAG }}-1
         run: |
           printf "\n###\n\n"
           ls -lrt 
@@ -42,5 +42,5 @@ jobs:
           printf "\n###\n\n"
           ls -lrt ../
       - name: Bats-support - debuild
-        working-directory: bats-support-${{ env.TAG }}
+        working-directory: bats-support-${{ env.TAG }}-1
         run: debuild -us -uc
