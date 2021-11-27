@@ -46,9 +46,10 @@ jobs:
         run: bats /usr/lib/bats-assert/test/
       - name: Bats-support - upload deb
         uses: actions/upload-artifact@v2
+        working-directory: bats-support-${{ env.TAG }}-1
         with:
           name: bats-support
-          path: bats-support-${{ env.TAG }}-1_amd64.deb
+          path: ../bats-support-${{ env.TAG }}-1_amd64.deb
 
   make-release:
     needs: bats-support
