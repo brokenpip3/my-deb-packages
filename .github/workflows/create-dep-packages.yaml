@@ -32,6 +32,15 @@ jobs:
       - name: Bats-support - Override defaults 
         working-directory: bats-support-${{ env.TAG }}
         run: cp ../bats-support-debian/bats-support/* debian/
+      - name: Bats-support - Debug
+        working-directory: bats-support-${{ env.TAG }}
+        run: |
+          printf "\n###\n\n"
+          ls -lrt 
+          printf "\n###\n\n"
+          ls -lrt debian
+          printf "\n###\n\n"
+          ls -lrt ../
       - name: Bats-support - debuild
         working-directory: bats-support-${{ env.TAG }}
-        run: debuild --no-tgz-check -us -uc
+        run: dh_make --createorig -s -y
