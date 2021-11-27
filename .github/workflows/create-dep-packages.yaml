@@ -19,11 +19,13 @@ jobs:
         with:
           repository: bats-core/bats-support
           path: bats-support-${{ env.TAG }}
-          ref: ${{ env.TAG }}
+          ref: v${{ env.TAG }}
       - name: Bats-support - Checkout debian
         uses: actions/checkout@v2
         with:
           path: bats-support-debian
+      - name: Bats-support - install prerequisites
+        run: sudo apt install dh-make devscripts -y
       - name: Bats-support - dh_make
         working-directory: bats-support-${{ env.TAG }}
         run: dh_make -s -y --createorig
