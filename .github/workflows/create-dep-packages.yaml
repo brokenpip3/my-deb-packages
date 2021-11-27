@@ -10,8 +10,8 @@ jobs:
     name: build bats-support
     runs-on: ubuntu-latest
     env:
-      DEBFULLNAME: Brokenpip3"
-      DEBEMAIL: brokenpip3@gmail.com"
+      DEBFULLNAME: Brokenpip3
+      DEBEMAIL: brokenpip3@gmail.com
       TAG: 0.3.0
     steps:
       - name: Bats-support - Checkout upstream
@@ -28,10 +28,10 @@ jobs:
         run: sudo apt install dh-make devscripts -y
       - name: Bats-support - dh_make
         working-directory: bats-support-${{ env.TAG }}
-        run: dh_make -s -y --createorig
+        run: dh_make --createorig -s -y
       - name: Bats-support - Override defaults 
         working-directory: bats-support-${{ env.TAG }}
         run: cp ../bats-support-debian/bats-support/* debian/
       - name: Bats-support - debuild
         working-directory: bats-support-${{ env.TAG }}
-        run: debuild -us -uc
+        run: debuild --no-tgz-check -us -uc
