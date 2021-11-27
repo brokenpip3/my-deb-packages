@@ -1,0 +1,33 @@
+name: build-packages
+on:
+  push: [main]
+  pull_request:
+    types: [closed]
+jobs:
+  bats-support:
+    name: build bats-support
+    runs-on: ubuntu-latest
+    env:
+      DEBFULLNAME: Brokenpip3"
+      DEBEMAIL: brokenpip3@gmail.com"
+      TAG: 0.3.0
+    steps:
+      - name: Bats-support - Checkout upstream
+        uses: actions/checkout@v2
+        with:
+          repository: bats-core/bats-support
+          path: bats-support-${{ env.TAG }}
+          ref: ${{ env.TAG }}
+      - name: Bats-support - Checkout debian
+        uses: actions/checkout@v2
+        with:
+          path: bats-support-debian
+      - name: Bats-support - dh_make
+        working-directory: bats-support-${{ env.TAG }}
+        run: dh_make -s -y --createorig
+      - name: Bats-support - Override defaults 
+        working-directory: bats-support-${{ env.TAG }}
+        run: cp ../bats-support-debian/bats-support/* debian/
+      - name: Bats-support - debuild
+        working-directory: bats-support-${{ env.TAG }}
+        run: debuild -us -uc
