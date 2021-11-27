@@ -2,16 +2,19 @@ name: build-packages
 on:
   push:
     branches: [ main ]
+    tags:
+      - 'v*.*.*'
   workflow_dispatch:
   pull_request:
     types: [closed]
+env:
+  DEBFULLNAME: Brokenpip3
+  DEBEMAIL: brokenpip3@gmail.com
 jobs:
   bats-support:
     name: build bats-support
     runs-on: ubuntu-latest
     env:
-      DEBFULLNAME: Brokenpip3
-      DEBEMAIL: brokenpip3@gmail.com
       TAG: 0.3.0
     steps:
       - name: Bats-support - Checkout upstream
@@ -29,18 +32,9 @@ jobs:
       - name: Bats-support - dh_make
         working-directory: bats-support-${{ env.TAG }}-1
         run: dh_make --createorig -s -y
-      - name: Bats-support - Override defaults 
+      - name: Bats-support - Override defaults
         working-directory: bats-support-${{ env.TAG }}-1
         run: cp ../bats-support-debian/bats-support/* debian/
-      - name: Bats-support - Debug
-        working-directory: bats-support-${{ env.TAG }}-1
-        run: |
-          printf "\n###\n\n"
-          ls -lrt 
-          printf "\n###\n\n"
-          ls -lrt debian
-          printf "\n###\n\n"
-          ls -lrt ../
       - name: Bats-support - debuild
         working-directory: bats-support-${{ env.TAG }}-1
         run: debuild -us -uc
@@ -50,8 +44,21 @@ jobs:
       - name: Bats-support - make test
         working-directory: bats-support-${{ env.TAG }}-1
         run: bats /usr/lib/bats-assert/test/
-      - name: Bats-support - Release
-        uses: softprops/action-gh-release@v1
-        #if: startsWith(github.ref, 'refs/tags/')
+      - name: Bats-support - upload deb
+        uses: actions/upload-artifact@v2
         with:
-          files: bats-support-${{ env.TAG }}-1_amd64.deb
+          name: bats-support
+          path: bats-support-${{ env.TAG }}-1_amd64.deb
+
+  make-release:
+    name: relase and upload artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v2
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            bats-support-${{ env.TAG }}-1_amd64.deb
