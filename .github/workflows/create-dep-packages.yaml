@@ -44,3 +44,9 @@ jobs:
       - name: Bats-support - debuild
         working-directory: bats-support-${{ env.TAG }}-1
         run: debuild -us -uc
+      - name: Bats-support - install
+        working-directory: bats-support-${{ env.TAG }}-1
+        run: sudo apt install -y ../bats-support-${{ env.TAG }}*.deb
+      - name: Bats-support - make test
+        working-directory: bats-support-${{ env.TAG }}-1
+        run: bats /usr/lib/bats-assert/test/
