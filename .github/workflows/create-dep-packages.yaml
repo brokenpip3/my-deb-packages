@@ -43,4 +43,4 @@ jobs:
           ls -lrt ../
       - name: Bats-support - debuild
         working-directory: bats-support-${{ env.TAG }}
-        run: dh_make --createorig -s -y
+        run: debuild -us -uc
