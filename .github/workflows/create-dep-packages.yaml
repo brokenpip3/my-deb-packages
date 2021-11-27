@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: bats-support
-          path: ../bats-support-${{ env.TAG }}-1_amd64.deb
+          path: bats-support-${{ env.TAG }}_1-1_amd64.deb
 
   make-release:
     needs: bats-support
@@ -62,4 +62,4 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            bats-support-${{ env.TAG }}-1_amd64.deb
+            bats-*.deb
