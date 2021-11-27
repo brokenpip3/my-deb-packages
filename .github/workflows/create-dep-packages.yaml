@@ -51,6 +51,7 @@ jobs:
           path: bats-support-${{ env.TAG }}-1_amd64.deb
 
   make-release:
+    needs: bats-support
     name: relase and upload artifacts
     runs-on: ubuntu-latest
     steps:
