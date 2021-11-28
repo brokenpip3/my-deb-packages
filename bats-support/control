@@ -1,4 +1,4 @@
-Source: bats-support-0.3.0
+Source: bats-support
 Section: shells
 Priority: optional
 Maintainer: Brokenpip3 <brokenpip3@gmail.com>
@@ -8,7 +8,7 @@ Homepage: https://github.com/bats-core/bats-support
 #Vcs-Browser: https://salsa.debian.org/debian/bats-support-0.3.0
 #Vcs-Git: https://salsa.debian.org/debian/bats-support-0.3.0.git
 
-Package: bats-support-0.3.0
+Package: bats-support
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, bash, bats
 Description:  Supporting library for Bats test helpers

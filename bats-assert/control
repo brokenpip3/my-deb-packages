@@ -1,4 +1,4 @@
-Source: bats-assert-2.0.0
+Source: bats-assert
 Section: shells
 Priority: optional
 Maintainer: Brokenpip3 <brokenpip3@gmail.com>
@@ -8,7 +8,7 @@ Homepage: https://github.com/bats-core/bats-assert
 #Vcs-Browser: https://salsa.debian.org/debian/bats-assert-2.0.0
 #Vcs-Git: https://salsa.debian.org/debian/bats-assert-2.0.0.git
 
-Package: bats-assert-2.0.0
+Package: bats-assert
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, bash, bats, bats-support
 Description: Common assertions for Bats
