@@ -33,7 +33,7 @@ jobs:
           path: bats-support-debian
       - name: Bats-support - dh_make
         working-directory: bats-support-${{ env.SUPPORT-TAG }}-1
-        run: dh_make --createorig -s -y
+        run: dh_make --createorig -s -y -p bats-support
       - name: Bats-support - Override defaults
         working-directory: bats-support-${{ env.SUPPORT-TAG }}-1
         run: cp ../bats-support-debian/bats-support/* debian/
@@ -59,7 +59,7 @@ jobs:
           path: bats-assert-debian
       - name: Bats-assert - dh_make
         working-directory: bats-assert-${{ env.ASSERT-TAG }}-1
-        run: dh_make --createorig -s -y
+        run: dh_make --createorig -s -y -p bats-assert
       - name: Bats-assert - Override defaults
         working-directory: bats-assert-${{ env.ASSERT-TAG }}-1
         run: cp ../bats-assert-debian/bats-assert/* debian/
