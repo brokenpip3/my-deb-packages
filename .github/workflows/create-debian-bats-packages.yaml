@@ -42,7 +42,7 @@ jobs:
         run: debuild -us -uc
       - name: Bats-support - install
         working-directory: bats-support-${{ env.SUPPORT-TAG }}
-        run: sudo apt install -y ../bats-support-${{ env.SUPPORT-TAG }}*.deb
+        run: sudo apt install -y ../bats-support_${{ env.SUPPORT-TAG }}*.deb
       - name: Bats-support - make test
         working-directory: bats-support-${{ env.SUPPORT-TAG }}
         run: bats /usr/lib/bats-support/test/
@@ -68,7 +68,7 @@ jobs:
         run: debuild -us -uc
       - name: Bats-assert - install
         working-directory: bats-assert-${{ env.ASSERT-TAG }}
-        run: sudo apt install -y ../bats-assert-${{ env.ASSERT-TAG }}*.deb
+        run: sudo apt install -y ../bats-assert_${{ env.ASSERT-TAG }}*.deb
       - name: Bats-assert - make test
         working-directory: bats-assert-${{ env.ASSERT-TAG }}
         run: bats /usr/lib/bats-assert/test/
@@ -77,7 +77,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: bats-support
-          path: bats-support-${{ env.SUPPORT-TAG }}_1-1_amd64.deb
+          path: bats-support_${{ env.SUPPORT-TAG }}-1_amd64.deb
 
   make-release:
     needs: bats-support-assert
