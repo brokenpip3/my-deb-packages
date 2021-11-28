@@ -132,8 +132,8 @@ jobs:
         uses: actions/download-artifact@v2
       - name: Release
         uses: softprops/action-gh-release@v1
-        body: Latest deb packages according to upstream release tags
         if: startsWith(github.ref, 'refs/tags/')
         with:
+          body: Latest deb packages according to upstream release tags
           files: |
             results-debs/bats-*.deb
