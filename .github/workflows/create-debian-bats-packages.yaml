@@ -25,52 +25,52 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: bats-core/bats-support
-          path: bats-support-${{ env.SUPPORT-TAG }}-1
+          path: bats-support-${{ env.SUPPORT-TAG }}
           ref: v${{ env.SUPPORT-TAG }}
       - name: Bats-support - Checkout debian
         uses: actions/checkout@v2
         with:
           path: bats-support-debian
       - name: Bats-support - dh_make
-        working-directory: bats-support-${{ env.SUPPORT-TAG }}-1
-        run: dh_make --createorig -s -y -p bats-support
+        working-directory: bats-support-${{ env.SUPPORT-TAG }}
+        run: dh_make --createorig -s -y
       - name: Bats-support - Override defaults
-        working-directory: bats-support-${{ env.SUPPORT-TAG }}-1
+        working-directory: bats-support-${{ env.SUPPORT-TAG }}
         run: cp ../bats-support-debian/bats-support/* debian/
       - name: Bats-support - debuild
-        working-directory: bats-support-${{ env.SUPPORT-TAG }}-1
+        working-directory: bats-support-${{ env.SUPPORT-TAG }}
         run: debuild -us -uc
       - name: Bats-support - install
-        working-directory: bats-support-${{ env.SUPPORT-TAG }}-1
+        working-directory: bats-support-${{ env.SUPPORT-TAG }}
         run: sudo apt install -y ../bats-support-${{ env.SUPPORT-TAG }}*.deb
       - name: Bats-support - make test
-        working-directory: bats-support-${{ env.SUPPORT-TAG }}-1
+        working-directory: bats-support-${{ env.SUPPORT-TAG }}
         run: bats /usr/lib/bats-support/test/
 
       - name: Bats-assert - Checkout upstream
         uses: actions/checkout@v2
         with:
           repository: bats-core/bats-assert
-          path: bats-assert-${{ env.ASSERT-TAG }}-1
+          path: bats-assert-${{ env.ASSERT-TAG }}
           ref: v${{ env.ASSERT-TAG }}
       - name: Bats-assert - Checkout debian
         uses: actions/checkout@v2
         with:
           path: bats-assert-debian
       - name: Bats-assert - dh_make
-        working-directory: bats-assert-${{ env.ASSERT-TAG }}-1
-        run: dh_make --createorig -s -y -p bats-assert
+        working-directory: bats-assert-${{ env.ASSERT-TAG }}
+        run: dh_make --createorig -s -y
       - name: Bats-assert - Override defaults
-        working-directory: bats-assert-${{ env.ASSERT-TAG }}-1
+        working-directory: bats-assert-${{ env.ASSERT-TAG }}
         run: cp ../bats-assert-debian/bats-assert/* debian/
       - name: Bats-assert - debuild
-        working-directory: bats-assert-${{ env.ASSERT-TAG }}-1
+        working-directory: bats-assert-${{ env.ASSERT-TAG }}
         run: debuild -us -uc
       - name: Bats-assert - install
-        working-directory: bats-assert-${{ env.ASSERT-TAG }}-1
+        working-directory: bats-assert-${{ env.ASSERT-TAG }}
         run: sudo apt install -y ../bats-assert-${{ env.ASSERT-TAG }}*.deb
       - name: Bats-assert - make test
-        working-directory: bats-assert-${{ env.ASSERT-TAG }}-1
+        working-directory: bats-assert-${{ env.ASSERT-TAG }}
         run: bats /usr/lib/bats-assert/test/
 
       - name: Bats-support and assert - upload deb
