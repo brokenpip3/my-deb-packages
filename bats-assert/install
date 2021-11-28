@@ -1,0 +1,4 @@
+src/* usr/lib/bats-assert/src/
+load.bash usr/lib/bats-assert/
+LICENSE usr/lib/bats-assert/
+test usr/lib/bats-assert/
