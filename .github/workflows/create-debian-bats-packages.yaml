@@ -83,7 +83,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: results-debs
-          path: *_amd64.deb
+          path: ./*_amd64.deb
 
   make-release:
     needs: bats-support-assert
