@@ -89,7 +89,7 @@ jobs:
     name: build bats-detik
     runs-on: ubuntu-latest
     env:
-      DETIK-TAG: v1.1.0
+      DETIK-TAG: 1.1.0
     steps:
       - name: Install prerequisites
         run: sudo apt install dh-make devscripts -y
