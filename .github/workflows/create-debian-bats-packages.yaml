@@ -134,6 +134,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          body: Latest deb packages according to upstream release tags
+          body: "Latest deb packages according to upstream release tags"
           files: |
             results-debs/bats-*.deb
