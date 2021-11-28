@@ -85,8 +85,49 @@ jobs:
           name: results-debs
           path: ./*_amd64.deb
 
+  bats-detik:
+    name: build bats-detik
+    runs-on: ubuntu-latest
+    env:
+      DETIK-TAG: v1.1.0
+    steps:
+      - name: Install prerequisites
+        run: sudo apt install dh-make devscripts -y
+
+      - name: Bats-detik - Checkout upstream
+        uses: actions/checkout@v2
+        with:
+          repository: bats-core/bats-detik
+          path: bats-detik-${{ env.DETIK-TAG }}
+          ref: v${{ env.DETIK-TAG }}
+      - name: Bats-detik - Checkout debian
+        uses: actions/checkout@v2
+        with:
+          path: bats-detik-debian
+      - name: Bats-detik - dh_make
+        working-directory: bats-detik-${{ env.DETIK-TAG }}
+        run: dh_make --createorig -s -y
+      - name: Bats-detik - Override defaults
+        working-directory: bats-detik-${{ env.DETIK-TAG }}
+        run: cp ../bats-detik-debian/bats-detik/* debian/
+      - name: Bats-detik - debuild
+        working-directory: bats-detik-${{ env.DETIK-TAG }}
+        run: debuild -us -uc
+      - name: Bats-detik - debinfo
+        working-directory: bats-detik-${{ env.DETIK-TAG }}
+        run: dpkg --info ../bats-detik_${{ env.DETIK-TAG }}*.deb
+      - name: Bats-detik - install
+        working-directory: bats-detik-${{ env.DETIK-TAG }}
+        run: sudo apt install -y ../bats-detik_${{ env.DETIK-TAG }}*.deb
+
+      - name: Bats-detik - upload deb
+        uses: actions/upload-artifact@v2
+        with:
+          name: results-debs
+          path: ./*_amd64.deb
+
   make-release:
-    needs: bats-support-assert
+    needs: [bats-support-assert, bats-detik]
     name: relase and upload artifacts
     runs-on: ubuntu-latest
     steps:
